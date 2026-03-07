@@ -1,8 +1,6 @@
 #include "Piece.h"
 #include "GameConfig.h"
 
-const Vector2 PieceSize(100, 100);
-
 Piece::Piece(PieceColor color, PieceType type) : _eaten(false), _eating(false), _moving(false), _color(color), _type(type)
 {
     _view = new Sprite;

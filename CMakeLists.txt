@@ -8,5 +8,18 @@ link_directories(${OXYGINE_LIBRARY_DIRS})
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OXYGINE_CXX_FLAGS}")
 
-add_executable(Chess  ../src/main.cpp ../src/GameConfig.cpp ../src/GameConfig.h ../src/Board.cpp ../src/Board.h ../src/RuleChecker.h ../src/RuleChecker.cpp)
-target_link_libraries(Chess ${OXYGINE_CORE_LIBS})
+include_directories(inc)
+file(GLOB SOURCES "src/*.cpp")
+# file(GLOB SOURCES 
+# "../src/main.cpp  "
+# "../src/GameConfig.cpp "
+# "../src/GameConfig.h "
+# "../src/Board.cpp "
+# "../src/Board.h "
+# "../src/RuleChecker.h "
+# "../src/RuleChecker.cpp "
+# "../src/Piece.h "
+# "../src/Piece.cpp")
+
+add_executable(${PROJECT_NAME} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} ${OXYGINE_CORE_LIBS})

@@ -21,8 +21,6 @@ enum class PieceType : int
 
 DECLARE_SMART(Piece, spPiece);
 
-extern const Vector2 PieceSize;
-
 class Piece : public Sprite
 {
 public:
