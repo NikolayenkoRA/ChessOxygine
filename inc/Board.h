@@ -7,11 +7,6 @@ using namespace oxygine;
 
 extern const Vector2 BoardSize;
 
-struct cell
-{
-    Vector2 coordinate;
-};
-
 class Board
 {
 public:
@@ -28,8 +23,13 @@ private:
     void touched(Event *event);
     void update(const UpdateState &us);
     void placeBoard();
-    spPiece placePiece(PieceColor pColor, PieceType pType, cell pos);
+    void placePiece(PieceColor pColor, PieceType pType, Point pos);
     void SetupBoard();
+    void makeMove(Point target, bool isAttack);
 
-    std::vector<cell> _field;
+    bool _hasSelectedPiece;
+
+    spPiece *selectedPiece;
+
+    std::vector<std::vector<spPiece>> _field;
 };

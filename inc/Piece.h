@@ -26,26 +26,29 @@ class Piece : public Sprite
 public:
     Piece(PieceColor color, PieceType type);
 
-    spActor getView() const;
-    PieceType getType() const;
+    spActor getView() const { return _view; }
+    PieceType getType() const { return _type; }
+    PieceColor getColor() const { return _color; }
 
     bool isMoving() const { return _moving; }
     bool isEating() const { return _eating; }
 
-    void move(const Vector2 &pos);
+    void move(const Point &pos);
     void beingEaten();
     void select();
     void unselect();
+    void setPos(Point newPos) { _pos = newPos; }
+    Point getPos() { return _pos; }
 
 private:
     void eaten(Event *);
     void moved(Event *);
 
     bool _moving;
-    bool _moved;
     bool _eating;
-    bool _eaten;
     spSprite _view;
+
+    Point _pos;
 
     PieceColor _color;
     PieceType _type;

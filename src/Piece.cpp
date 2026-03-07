@@ -1,14 +1,9 @@
 #include "Piece.h"
 #include "GameConfig.h"
 
-Piece::Piece(PieceColor color, PieceType type) : _eaten(false), _eating(false), _moving(false), _color(color), _type(type)
+Piece::Piece(PieceColor color, PieceType type) : _eating(false), _moving(false), _color(color), _type(type)
 {
-    _view = new Sprite;
-
-    char name[255];
-    safe_sprintf(name, "Piece%d", _type);
-
-    _view->setResAnim(res.getResAnim("ChessPieces"));
+    _view = this;
 
     // set pilot to center of sprite
     Vector2 center = _view->getSize() / 2;
@@ -18,30 +13,23 @@ Piece::Piece(PieceColor color, PieceType type) : _eaten(false), _eating(false), 
     _view->setAnchorInPixels(center);
 }
 
-void Piece::move(const Vector2 &pos)
+void Piece::move(const Point &pos)
 {
+    unselect();
     _moving = true; // Блокируем фигуру от повторных кликов
 
     // Создаем анимацию перемещения
-    spTween tween = _view->addTween(Actor::TweenPosition(pos), 500, 1, false, 0, Tween::EASE::ease_outSin);
+    Point viewPos = Point(pos.x * PieceSize.x + (PieceSize.x / 2), pos.y * PieceSize.y + (PieceSize.y / 2));
+    spTween tween = _view->addTween(Actor::TweenPosition(viewPos), 500, 1, false, 0, Tween::EASE::ease_outSin);
 
     // Когда доедет — вызываем метод завершения
     tween->setDoneCallback(CLOSURE(this, &Piece::moved));
+    _pos = pos;
 }
 
 void Piece::moved(Event *)
 {
-    _moved = true;
-}
-
-spActor Piece::getView() const
-{
-    return _view;
-}
-
-PieceType Piece::getType() const
-{
-    return _type;
+    _moving = false;
 }
 
 void Piece::beingEaten()
@@ -54,17 +42,18 @@ void Piece::beingEaten()
 
 void Piece::eaten(Event *)
 {
-    _eaten = true;
     _view->detach();
 }
 
 void Piece::select()
 {
-    _view->addTween(Actor::TweenScale(1.1), 500, -1, true);
+    _view->addTween(Actor::TweenScale(1.1), 1000, -1, true);
+    _view->setColor(Color(150, 255, 150, 255));
 }
 
 void Piece::unselect()
 {
-    _view->removeTweens(false);
-    _view->addTween(Actor::TweenScale(1), 250);
+    _view->removeTweens();
+    _view->setScale(1);
+    _view->setColor(Color());
 }

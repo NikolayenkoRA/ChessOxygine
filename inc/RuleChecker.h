@@ -1,8 +1,10 @@
 #pragma once
 #include "oxygine-framework.h"
+#include "Piece.h"
 
 using namespace oxygine;
 
 DECLARE_SMART(Piece, spPiece);
 
-bool isValidMove(spPiece *selected, spPiece *target);
+bool isValidMove(spPiece *selected, Point target, bool isAttack);
+bool checkPawn(Point pPos, Point target, PieceColor pColor, Vector2 movingVector, bool isAttack);

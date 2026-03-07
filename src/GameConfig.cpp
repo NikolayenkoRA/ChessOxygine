@@ -36,7 +36,6 @@ void game_init()
     board.init();
 
     spActor view = board.getView();
-    view->setScale(getStage()->getHeight() / view->getHeight());
     view->setPosition(getStage()->getSize() / 2 - view->getScaledSize() / 2);
     getStage()->addChild(view);
 }

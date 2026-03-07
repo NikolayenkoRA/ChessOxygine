@@ -6,39 +6,45 @@
 	<set path = "images/" />	
 
 	<atlas>
-		<image file="bg.png"/>	
-		<image file="board.png"/>
-		
-		<image file="ChessPieces.png">
+		<image file="bg.png" />	
+		<image file="board.png" />
+	</atlas>
 
-		<sprite name="white_rook" rect="0, 0, 100, 100" />
-        <sprite name="white_knight" rect="100, 0, 100, 100" />
-		<sprite name="white_bishop" rect="200, 0, 100, 100" />
-        <sprite name="white_queen" rect="300, 0, 100, 100" />
-		<sprite name="white_king" rect="400, 0, 100, 100" />
-        <sprite name="white_pawn" rect="500, 0, 100, 100" />
+	<set path = "images/pieces/black"/>	
+	<atlas>
+		<image file="black_bishop.png" 	id="black_bishop"/>
+		<image file="black_king.png" 	id="black_king" />
+		<image file="black_knight.png" 	id="black_knight"/>
+		<image file="black_pawn.png" 	id="black_pawn" />
+		<image file="black_queen.png" 	id="black_queen" />
+		<image file="black_rook.png" 	id="black_rook" />
+	</atlas>
 
-		<sprite name="black_rook" rect="0, 100, 100, 100" />
-        <sprite name="black_knight" rect="100, 100, 100, 100" />
-		<sprite name="black_bishop" rect="200, 100, 100, 100" />
-        <sprite name="black_queen" rect="300, 100, 100, 100" />
-		<sprite name="black_king" rect="400, 100, 100, 100" />
-        <sprite name="black_pawn" rect="500, 100, 100, 100" />
 
-		<!-- <image id="black_bishop" file="black_bishop.png" />
-		<image id="black_king" file="black_king.png" />
-		<image id="black_knight" file="black_knight.png" />
-		<image id="black_pawn" file="black_pawn.png" />
-		<image id="black_qeen" file="black_qeen.png" />
-		<image id="black_rook" file="black_rook.png" />
-
-		<set path = "pieces/white"/>	
-
-		<image id="white_bishop" file="white_bishop.png" />
-		<image id="white_king" file="white_king.png" />
-		<image id="white_knight" file="white_knight.png" />
-		<image id="white_pawn" file="white_pawn.png" />
-		<image id="white_qeen" file="white_qeen.png" />
-		<image id="white_rook" file="white_rook.png" /> -->
+	<set path = "images/pieces/white"/>	
+	<atlas>
+		<image file="white_bishop.png" 	id="white_bishop"	/>
+		<image file="white_king.png" 	id="white_king" 	/>
+		<image file="white_knight.png" 	id="white_knight"	/>
+		<image file="white_pawn.png" 	id="white_pawn" 	/>
+		<image file="white_queen.png" 	id="white_queen" 	/>
+		<image file="white_rook.png" 	id="white_rook" 	/> 
 	</atlas>
 </resources>
+
+
+
+		<!-- <image file="ChessPieces.png" h="200" w="800" >
+		<id="white_rook" rect="0, 0, 100, 100" />
+        <id="white_knight" rect="100, 0, 100, 100" />
+		<id="white_bishop" rect="200, 0, 100, 100" />
+        <id="white_queen" rect="300, 0, 100, 100" />
+		<id="white_king" rect="400, 0, 100, 100" />
+        <id="white_pawn" rect="500, 0, 100, 100" />
+
+		<id="black_rook" rect="0, 100, 100, 100" />
+        <id="black_knight" rect="100, 100, 100, 100" />
+		<id="black_bishop" rect="200, 100, 100, 100" />
+        <id="black_queen" rect="300, 100, 100, 100" />
+		<id="black_king" rect="400, 100, 100, 100" />
+        <id="black_pawn" rect="500, 100, 100, 100" /> -->
