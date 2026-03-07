@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <atlas file="chess_atlas.png">
-        <sprite name="pawn_white" rect="0,0,100,100" />
-        <sprite name="rook_white" rect="100,0,100,100" />
-        </atlas>
-</resources>

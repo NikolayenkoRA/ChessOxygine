@@ -1,9 +1,11 @@
 #include "ox/oxygine.hpp"
 #include "ox/Stage.hpp"
 #include "ox/DebugActor.hpp"
-#include "chess.hpp"
+#include "GameConfig.h"
 
 using namespace oxygine;
+
+Resources res;
 
 // This function is called each frame
 int mainloop()
@@ -14,7 +16,7 @@ int mainloop()
     bool done = core::update();
 
     // It gets passed to our example game implementation
-    example_update();
+    game_update();
 
     // Update our stage
     // Update all actors. Actor::update will also be called for all its children
@@ -39,28 +41,9 @@ void run()
     ObjectBase::__startTracingLeaks();
 
     // Initialize Oxygine's internal stuff
-    core::init_desc desc;
-    desc.title = "Oxygine Application";
+    game_preinit();
 
-    // The initial window size can be set up here on SDL builds, ignored on Mobile devices
-    desc.w = 960;
-    desc.h = 640;
-
-
-    example_preinit();
-    core::init(&desc);
-
-
-    // Create the stage. Stage is a root node for all updateable and drawable objects
-    Stage::instance = new Stage();
-    Point size = core::getDisplaySize();
-    getStage()->setSize(size);
-
-    // DebugActor is a helper actor node. It shows FPS, memory usage and other useful stuff
-    DebugActor::show();
-
-    // Initializes our example game. See example.cpp
-    example_init();
+    game_init();
 
     // This is the main game loop.
     while (1)
@@ -82,11 +65,10 @@ void run()
     But now we want to delete it by hand.
     */
 
-    // See example.cpp for the shutdown function implementation
-    example_destroy();
+    // See GameConfig.cpp for the shutdown function implementation
+    game_destroy();
 
-
-    //renderer.cleanup();
+    // renderer.cleanup();
 
     // Releases all internal components and the stage
     core::release();
@@ -96,7 +78,7 @@ void run()
     ObjectBase::dumpCreatedObjects();
 
     ObjectBase::__stopTracingLeaks();
-    //end
+    // end
 }
 
 #ifdef OXYGINE_SDL
@@ -106,17 +88,17 @@ void run()
 
 extern "C"
 {
-    void one(void* param) { mainloop(); }
+    void one(void *param) { mainloop(); }
     void oneEmsc() { mainloop(); }
 
-    int main(int argc, char* argv[])
+    int main(int argc, char *argv[])
     {
 
         run();
 
 #if TARGET_OS_IPHONE || TARGET_OS_SIMULATOR
         // If parameter 2 is set to 1, refresh rate will be 60 fps, 2 - 30 fps, 3 - 15 fps.
-        //SDL_iPhoneSetAnimationCallback(core::getWindow(), 1, one, nullptr);
+        // SDL_iPhoneSetAnimationCallback(core::getWindow(), 1, one, nullptr);
 #endif
 
 #if EMSCRIPTEN
