@@ -28,8 +28,9 @@ private:
     void makeMove(Point target, bool isAttack);
 
     bool _hasSelectedPiece;
+    bool _isWhiteTurn;
 
-    spPiece *selectedPiece;
+    spPiece *_selectedPiece;
 
     std::vector<std::vector<spPiece>> _field;
 };

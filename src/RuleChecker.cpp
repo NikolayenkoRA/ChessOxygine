@@ -16,9 +16,19 @@ bool isValidMove(spPiece *selected, Point target, bool isAttack)
     {
     case PieceType::pawn:
         return checkPawn(pPos, target, pColor, movingVector, isAttack);
+    case PieceType::knight:
+        return checkKnight(movingVector);
     default:
         return false;
     }
+}
+
+bool checkKnight(Vector2 movingVector)
+{
+    if (movingVector.sqlength() == 5)
+        return true;
+    else
+        return false;
 }
 
 bool checkPawn(Point pPos, Point target, PieceColor pColor, Vector2 movingVector, bool isAttack)

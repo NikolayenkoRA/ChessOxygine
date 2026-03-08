@@ -137,6 +137,8 @@ void Board::init()
     getStage()->addChild(_view);
 
     SetupBoard();
+
+    _isWhiteTurn = true;
 }
 
 void Board::update(const UpdateState &us)
@@ -145,16 +147,18 @@ void Board::update(const UpdateState &us)
 
 void Board::makeMove(Point target, bool isAttack)
 {
-    Point curPos = selectedPiece->get()->getPos();
+    Point curPos = _selectedPiece->get()->getPos();
     if (isAttack)
     {
         _field[target.x][target.y].get()->beingEaten();
     }
-    selectedPiece->get()->move(target);
-    _field[target.x][target.y] = *selectedPiece;
+
+    _selectedPiece->get()->move(target);
+    _field[target.x][target.y] = *_selectedPiece;
     _field[curPos.x][curPos.y] = nullptr;
-    selectedPiece = nullptr;
+    _selectedPiece = nullptr;
     _hasSelectedPiece = false;
+    _isWhiteTurn = !_isWhiteTurn;
 }
 
 void Board::touched(Event *event)
@@ -165,20 +169,27 @@ void Board::touched(Event *event)
     clickPos.x = (int)(pos.x / PieceSize.x);
     clickPos.y = (int)(pos.y / PieceSize.y);
     spPiece *clickPiece = &(_field[clickPos.x][clickPos.y]);
+    bool makeAnAttack = false;
 
     if (_hasSelectedPiece)
     {
-        if (selectedPiece == clickPiece)
+        if (_selectedPiece == clickPiece)
         {
-            // logs::messageln("Second Click!");
             clickPiece->get()->unselect();
             _hasSelectedPiece = false;
         }
         else
         {
-            bool makeAnAttack = clickPiece->get() != nullptr;
+            if (clickPiece->get() != nullptr)
+            {
+                if (clickPiece->get()->getColor() != _selectedPiece->get()->getColor())
+                    makeAnAttack = true;
+                else
+                    return;
+            }
+
             logs::messageln("Attack: %d!", makeAnAttack);
-            if (isValidMove(selectedPiece, clickPos, makeAnAttack))
+            if (isValidMove(_selectedPiece, clickPos, makeAnAttack))
             {
                 logs::messageln("VALID Move!");
                 makeMove(clickPos, makeAnAttack);
@@ -191,20 +202,20 @@ void Board::touched(Event *event)
     }
     else
     {
-        if (*clickPiece)
+        if (clickPiece->get() != nullptr)
         {
-            _hasSelectedPiece = true;
-            selectedPiece = clickPiece;
-            clickPiece->get()->select();
+            if (_isWhiteTurn == (clickPiece->get()->getColor() == PieceColor::white))
+            {
+                _hasSelectedPiece = true;
+                _selectedPiece = clickPiece;
+                clickPiece->get()->select();
+            }
         }
         else
         {
             logs::messageln("Empty Cell");
         }
     }
-
-    if (*clickPiece)
-        logs::messageln("%d - %d: %d", clickPos.x, clickPos.y, (int)clickPiece->get()->getType());
 
     //     if (_selected)
     //     {
