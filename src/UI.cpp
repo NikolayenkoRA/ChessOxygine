@@ -19,6 +19,9 @@ void SceneUI::showFloatingMessage(const std::string &text, oxygine::Color color)
 
         _statusBg->setPosition(0, getStage()->getHeight() / 2 - _fontSize * 2);
 
+        _statusBg->setTouchEnabled(false);
+        _statusBg->setTouchChildrenEnabled(false);
+
         getStage()->addChild(_statusBg);
 
         // text
@@ -39,7 +42,7 @@ void SceneUI::showFloatingMessage(const std::string &text, oxygine::Color color)
 
         _statusBg->addChild(_statusText);
 
-        spTween tween = _statusBg->addTween(Actor::TweenAlpha(0), 500, 1, false, 1500);
+        spTween tween = _statusBg->addTween(Actor::TweenAlpha(0), 500, 1, false, 1000);
 
         tween->setDoneCallback(CLOSURE(this, &SceneUI::tweenFinished));
     }

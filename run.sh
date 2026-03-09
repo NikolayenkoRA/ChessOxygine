@@ -9,8 +9,5 @@ cmake ..
 #build it
 make
 
-#move to working data folder with resources
-cd data
-
 #run executable
-./../Chess
+./Chess
