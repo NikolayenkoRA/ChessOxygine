@@ -31,20 +31,3 @@
 		<image file="white_rook.png" 	id="white_rook" 	/> 
 	</atlas>
 </resources>
-
-
-
-		<!-- <image file="ChessPieces.png" h="200" w="800" >
-		<id="white_rook" rect="0, 0, 100, 100" />
-        <id="white_knight" rect="100, 0, 100, 100" />
-		<id="white_bishop" rect="200, 0, 100, 100" />
-        <id="white_queen" rect="300, 0, 100, 100" />
-		<id="white_king" rect="400, 0, 100, 100" />
-        <id="white_pawn" rect="500, 0, 100, 100" />
-
-		<id="black_rook" rect="0, 100, 100, 100" />
-        <id="black_knight" rect="100, 100, 100, 100" />
-		<id="black_bishop" rect="200, 100, 100, 100" />
-        <id="black_queen" rect="300, 100, 100, 100" />
-		<id="black_king" rect="400, 100, 100, 100" />
-        <id="black_pawn" rect="500, 100, 100, 100" /> -->

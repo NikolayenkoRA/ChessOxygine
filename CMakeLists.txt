@@ -10,16 +10,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OXYGINE_CXX_FLAGS}")
 
 include_directories(inc)
 file(GLOB SOURCES "src/*.cpp")
-# file(GLOB SOURCES 
-# "../src/main.cpp  "
-# "../src/GameConfig.cpp "
-# "../src/GameConfig.h "
-# "../src/Board.cpp "
-# "../src/Board.h "
-# "../src/RuleChecker.h "
-# "../src/RuleChecker.cpp "
-# "../src/Piece.h "
-# "../src/Piece.cpp")
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} ${OXYGINE_CORE_LIBS})
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_CURRENT_SOURCE_DIR}/data
+    ${CMAKE_CURRENT_BINARY_DIR}/data
+)

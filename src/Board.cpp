@@ -216,27 +216,6 @@ void Board::touched(Event *event)
             logs::messageln("Empty Cell");
         }
     }
-
-    //     if (_selected)
-    //     {
-    //         _selected->piece->unselect();
-    //         if (sp)
-    //         {
-    //             if (isValidMove(_selected, sp))
-    //             {
-    //                 spTween tween = makeMove(*_selected, *sp);
-    //                 tween->setDoneCallback(CLOSURE(this, &Board::swapped));
-    //             }
-    //         }
-
-    //         _selected = 0;
-    //     }
-    //     else
-    //     {
-    //         _selected = sp;
-    //         if (sp)
-    //             sp->piece->select();
-    //     }
 }
 
 spActor Board::getView()
