@@ -18,76 +18,82 @@ bool isValidMove(std::vector<std::vector<spPiece>> &field, spPiece *selected, Po
         return checkKnight(movingVector);
     case PieceType::rook:
         return checkRook(field, pPos, target, movingVector, isAttack);
+    case PieceType::bishop:
+        return checkBishop(field, pPos, target, movingVector, isAttack);
+    case PieceType::queen:
+        return checkQueen(field, pPos, target, movingVector, isAttack);
+    case PieceType::king:
+        return checkKing(field, pPos, target, movingVector, isAttack);
     default:
         return false;
     }
 }
 
-bool checkRook(std::vector<std::vector<spPiece>> &field, Point pPos, Point target, Vector2 movingVector, bool isAttack)
+bool checkKing(std::vector<std::vector<spPiece>> &field, Point &pPos, Point &target, Vector2 &movingVector, bool &isAttack)
 {
-    int shift = 0;
-    int nextCellPos = 0;
-    spPiece *nextCell = nullptr;
-    if (movingVector.y == 0)
+    if (movingVector.sqlength() <= 2)
     {
-        logs::messageln("Rook: moving X!");
-        movingVector.x > 0 ? shift = 1 : shift = -1;
-        nextCellPos = pPos.x + shift;
-        // Check obstacles
-        while (nextCellPos != (target.x + shift))
-        {
-            logs::messageln("Rook: moving X: cur: %d target: %d!", nextCellPos, target.x);
-            nextCell = &(field[nextCellPos][pPos.y]);
-            if (nextCell->get() != nullptr)
-            {
-                if (nextCellPos == (target.x) && isAttack)
-                    return true;
-                else
-                {
-                    logs::messageln("Obstacle!");
-                    return false;
-                }
-            }
-            else
-            {
-                logs::messageln("No obstacle at (%d;%d)!", pPos.x, nextCellPos);
-                nextCellPos += shift;
-            }
-        }
-        return true;
-    }
-    else if (movingVector.x == 0)
-    {
-        logs::messageln("Rook: moving Y!");
-        movingVector.y > 0 ? shift = 1 : shift = -1;
-        nextCellPos = pPos.y + shift;
-        // Check obstacles
-        while (nextCellPos != (target.y + shift))
-        {
-            logs::messageln("Rook: moving Y: cur: %d target: %d!", nextCellPos, target.y);
-            nextCell = &(field[pPos.x][nextCellPos]);
-            if (nextCell->get() != nullptr)
-            {
-                if (nextCellPos == (target.y) && isAttack)
-                    return true;
-                else
-                {
-                    logs::messageln("Obstacle!");
-                    return false;
-                }
-            }
-            else
-            {
-                logs::messageln("No obstacle at (%d;%d)!", nextCellPos, pPos.y);
-                nextCellPos += shift;
-            }
-        }
-        return true;
+        return checkGeneralMove(field, pPos, target, movingVector, isAttack);
     }
     else
-    {
         return false;
+}
+
+bool checkQueen(std::vector<std::vector<spPiece>> &field, Point &pPos, Point &target, Vector2 &movingVector, bool &isAttack)
+{
+    return checkGeneralMove(field, pPos, target, movingVector, isAttack);
+}
+
+bool checkBishop(std::vector<std::vector<spPiece>> &field, Point &pPos, Point &target, Vector2 &movingVector, bool &isAttack)
+{
+    if (abs(movingVector.x) == abs(movingVector.y))
+    {
+        return checkGeneralMove(field, pPos, target, movingVector, isAttack);
     }
+    else
+        return false;
+}
+
+bool checkRook(std::vector<std::vector<spPiece>> &field, Point &pPos, Point &target, Vector2 &movingVector, bool &isAttack)
+{
+    if (movingVector.y == 0 || movingVector.x == 0)
+    {
+        return checkGeneralMove(field, pPos, target, movingVector, isAttack);
+    }
+    else
+        return false;
+}
+
+bool checkGeneralMove(std::vector<std::vector<spPiece>> &field, Point &pPos, Point &target, Vector2 &movingVector, bool &isAttack)
+{
+    Point shift;
+    Point nextCellPos;
+    spPiece *nextCell = nullptr;
+    movingVector.x >= 0 ? movingVector.x > 0 ? shift.x = 1 : shift.x = 0 : shift.x = -1;
+    movingVector.y >= 0 ? movingVector.y > 0 ? shift.y = 1 : shift.y = 0 : shift.y = -1;
+    nextCellPos = pPos + shift;
+    // Check obstacles
+    while (nextCellPos != (target + shift))
+    {
+        logs::messageln("GM: cur: (%d, %d) target: (%d, %d)!", nextCellPos.x, nextCellPos.y, target.x, target.y);
+        nextCell = &(field[nextCellPos.x][nextCellPos.y]);
+        if (nextCell->get() != nullptr)
+        {
+            if (nextCellPos == (target) && isAttack)
+                return true;
+            else
+            {
+                logs::messageln("Obstacle!");
+                return false;
+            }
+        }
+        else
+        {
+            logs::messageln("No obstacle at (%d;%d)!", nextCellPos.x, nextCellPos.y);
+            nextCellPos += shift;
+        }
+    }
+    return true;
 }
 
 bool checkKnight(Vector2 movingVector)
