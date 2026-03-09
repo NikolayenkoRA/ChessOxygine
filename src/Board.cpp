@@ -187,16 +187,13 @@ void Board::touched(Event *event)
                 else
                     return;
             }
-
-            logs::messageln("Attack: %d!", makeAnAttack);
             if (isValidMove(_field, _selectedPiece, clickPos, makeAnAttack))
             {
-                logs::messageln("VALID Move!");
                 makeMove(clickPos, makeAnAttack);
             }
             else
             {
-                logs::messageln("Invalid Move!");
+                UI.showFloatingMessage("Prohibited Move!", Color::Red);
             }
         }
     }
@@ -209,6 +206,19 @@ void Board::touched(Event *event)
                 _hasSelectedPiece = true;
                 _selectedPiece = clickPiece;
                 clickPiece->get()->select();
+            }
+            else
+            {
+                switch (clickPiece->get()->getColor())
+                {
+                case PieceColor::white:
+                    UI.showFloatingMessage("It's the BLACK turn!", Color::Red);
+                    break;
+
+                case PieceColor::black:
+                    UI.showFloatingMessage("It's the WHITE turn!", Color::Red);
+                    break;
+                }
             }
         }
         else
