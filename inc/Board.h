@@ -2,10 +2,12 @@
 #include <vector>
 #include "oxygine-framework.h"
 #include "Piece.h"
+#include "UI.h"
 
 using namespace oxygine;
 
 extern const Vector2 BoardSize;
+extern SceneUI UI;
 
 class Board
 {

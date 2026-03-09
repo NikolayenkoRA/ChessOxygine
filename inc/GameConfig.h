@@ -5,6 +5,7 @@ using namespace oxygine;
 
 extern Resources res;
 
+const int fontSize = 90;
 const Vector2 PieceSize = Vector2(100, 100);
 const Vector2 BoardSize = Vector2(800, 800);
 const Vector2 Window = Vector2(1920, 1080);

@@ -2,6 +2,8 @@
 #include "Board.h"
 
 Board board;
+SceneUI UI;
+
 core::init_desc desc;
 
 void game_preinit()
@@ -38,6 +40,8 @@ void game_init()
     spActor view = board.getView();
     view->setPosition(getStage()->getSize() / 2 - view->getScaledSize() / 2);
     getStage()->addChild(view);
+
+    UI.showFloatingMessage("White turn!", Color::White);
 }
 
 void game_destroy()
