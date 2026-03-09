@@ -189,7 +189,7 @@ void Board::touched(Event *event)
             }
 
             logs::messageln("Attack: %d!", makeAnAttack);
-            if (isValidMove(_selectedPiece, clickPos, makeAnAttack))
+            if (isValidMove(_field, _selectedPiece, clickPos, makeAnAttack))
             {
                 logs::messageln("VALID Move!");
                 makeMove(clickPos, makeAnAttack);
